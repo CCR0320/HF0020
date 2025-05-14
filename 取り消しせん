@@ -1,0 +1,30 @@
+Private Sub Worksheet_Change(ByVal Target As Range)
+    If Not Intersect(Target, Me.Range("A3:B4")) Is Nothing Then
+        Application.EnableEvents = False
+        Call UpdateStrikeThrough
+        Application.EnableEvents = True
+    End If
+End Sub
+
+Private Sub UpdateStrikeThrough()
+    ' A3に値がない場合、C3・C4の取り消し線を解除
+    If IsEmpty(Me.Range("A3").Value) Then
+        Me.Range("C3").Font.Strikethrough = False
+        Me.Range("C4").Font.Strikethrough = False
+        Exit Sub
+    End If
+
+    ' B3が空欄 → C3に取り消し線
+    If IsEmpty(Me.Range("B3").Value) Then
+        Me.Range("C3").Font.Strikethrough = True
+    Else
+        Me.Range("C3").Font.Strikethrough = False
+    End If
+
+    ' B4が空欄 → C4に取り消し線
+    If IsEmpty(Me.Range("B4").Value) Then
+        Me.Range("C4").Font.Strikethrough = True
+    Else
+        Me.Range("C4").Font.Strikethrough = False
+    End If
+End Sub
