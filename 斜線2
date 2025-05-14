@@ -1,0 +1,39 @@
+Private Sub Worksheet_Change(ByVal Target As Range)
+    If Not Intersect(Target, Range("A3:B4")) Is Nothing Then
+        Application.EnableEvents = False
+        Call UpdateDiagonalLines
+        Application.EnableEvents = True
+    End If
+End Sub
+
+Private Sub UpdateDiagonalLines()
+    ' A3に値がある場合のみ判定処理を行う
+    If IsEmpty(Range("A3").Value) Then
+        ' 斜線を全て削除して終了
+        Range("C3").Borders(xlDiagonalDown).LineStyle = xlNone
+        Range("C4").Borders(xlDiagonalDown).LineStyle = xlNone
+        Exit Sub
+    End If
+
+    ' B3が空欄 → C3に斜線
+    If IsEmpty(Range("B3").Value) Then
+        With Range("C3").Borders(xlDiagonalDown)
+            .LineStyle = xlContinuous
+            .Weight = xlThin
+            .Color = RGB(0, 0, 0)
+        End With
+    Else
+        Range("C3").Borders(xlDiagonalDown).LineStyle = xlNone
+    End If
+
+    ' B4が空欄 → C4に斜線
+    If IsEmpty(Range("B4").Value) Then
+        With Range("C4").Borders(xlDiagonalDown)
+            .LineStyle = xlContinuous
+            .Weight = xlThin
+            .Color = RGB(0, 0, 0)
+        End With
+    Else
+        Range("C4").Borders(xlDiagonalDown).LineStyle = xlNone
+    End If
+End Sub
