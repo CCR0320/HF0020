@@ -1,0 +1,33 @@
+Sub DrawDiagonalIfBlank()
+
+    ' A3に値があるか確認
+    If IsEmpty(Range("A3").Value) Then
+        ' A3が空欄なら何もせず終了
+        Exit Sub
+    End If
+
+    ' B3が空欄の場合 → C3に斜線を引く
+    If IsEmpty(Range("B3").Value) Then
+        With Range("C3").Borders(xlDiagonalDown)
+            .LineStyle = xlContinuous
+            .Weight = xlThin
+            .Color = RGB(0, 0, 0)
+        End With
+    Else
+        ' 空欄でない場合は斜線を消す
+        Range("C3").Borders(xlDiagonalDown).LineStyle = xlNone
+    End If
+
+    ' B4が空欄の場合 → C4に斜線を引く
+    If IsEmpty(Range("B4").Value) Then
+        With Range("C4").Borders(xlDiagonalDown)
+            .LineStyle = xlContinuous
+            .Weight = xlThin
+            .Color = RGB(0, 0, 0)
+        End With
+    Else
+        ' 空欄でない場合は斜線を消す
+        Range("C4").Borders(xlDiagonalDown).LineStyle = xlNone
+    End If
+
+End Sub
